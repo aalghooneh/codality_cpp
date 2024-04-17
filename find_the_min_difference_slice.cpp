@@ -1,47 +1,43 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <limits>
-#include <numeric>
+#include "math.h"
 
-int min_diff(std::vector<int> vec){
+
+
+int solution(vector<int> &A) {
+    // Implement your solution here
     
-    int N = vec.size();
-    int min_diff  =  std::numeric_limits<int>::max();
-    int P = 0;
+
+    typedef  std::vector<int> vec;
+
+
+
     
-    std::vector<int> sum_vec_left(N);
-    sum_vec_left[0]=vec[0];
+    int N = A.size();
     
-    for (int i = 1 ; i < N ; i++){
-        sum_vec_left[i] = sum_vec_left[i-1] + vec[i];
+    vec sum_left(N);
+    vec sum_right(N);
+
+    sum_left[0]= 0;
+    sum_right[N-1] = A[N-1];
+
+    for (int i = 1 ; i < N ; ++i){
+        sum_left[i] = sum_left[i-1] + A[i-1];
     }
     
-    std::vector<int> sum_vec_right(N);
-    sum_vec_right[N-1] = vec[N-1];
     
-    for (int j = N - 2; j >=0 ; j--){
-        sum_vec_right[j] = sum_vec_right[j+1] + vec[j];
+    for (int i = N-2; i>=0 ; i--){
+        sum_right[i] = sum_right[i+1] + A[i];
     }
     
-    for (int p = 0 ; p < N ; p++){
+
+    int min_diff=100000000;
+    int min_candid;
+    for (int p = 1; p < N ; p++){
         
-        int temp_diff = std::abs( sum_vec_left[p] - sum_vec_right[p+1]);
-        
-        if (temp_diff <= min_diff){
-            min_diff = temp_diff;
-            P = p;
-        }
+        min_candid = std::abs( sum_right[p] - sum_left[p]);
+
+        min_diff = std::min(min_diff, min_candid);
+
     }
 
-
-    return P;
+    return min_diff;
 }
-
-
-int main(){
-    std::vector<int> vec = {10,20,30,40,50,149};
-    
-    std::cout<<min_diff(vec);
-}
-
