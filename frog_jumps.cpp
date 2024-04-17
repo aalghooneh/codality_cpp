@@ -1,37 +1,21 @@
+// you can use includes, for example:
+// #include <algorithm>
 
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
 
-#include <iostream>
+int solution(int X, int Y, int D) {
+    
+    if (Y < X) return 0;
 
+    int TD = Y - X;
 
+    int NJ = TD/D;
 
-int calculate_distance(int X, int Y, int D){
-    
-    int TD = std::abs(X - Y);
-
-    if ( TD == 0){
-        return 0;
-    }
-    
-    if (TD < D){
-        return 1;
-    }
-    
-    int NJ = TD / D;
-    
-    
-    
-    if ( (TD % D) == 0 ){
-        return NJ;
-    } else {
+    if (TD%D != 0){
         return NJ + 1;
+    } else{
+        return NJ;
     }
-    
-}
 
-
-
-int main(){
-    
-    std::cout<<calculate_distance(20, 80, 30)<<std::endl;
-    return 0;
 }
