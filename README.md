@@ -22,7 +22,6 @@
    ```
 3. **Compile** any solution you want to test:
    ```
-   cd Lesson1
    g++ -std=c++17 -O2 -o solution solution.cpp
    ```
 4. **Run** the compiled program:
